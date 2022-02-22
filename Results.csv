@@ -1,0 +1,10 @@
+﻿Algorithm (samples=1000),Item Fetching (ns),Gen n=1 (ns),Gen n=10 (ns),Gen n=100 (ns),Gen n=1000 (ns),,Device
+MD5,1263,4798,16505,42511,252774,,Laptop
+SHA-256,899,4098,18950,60528,288097,,Laptop
+SHA-512,414,3635,17956,32161,331676,,Laptop
+SHA3-256,321,4451,17671,78174,768871,,Laptop
+,,,,,,,
+Algorithm (samples=1000),Item Fetching (ns),Gen n=1 (ns),Gen n=10 (ns),Gen n=100 (ns),Gen n=1000 (ns),,Device
+MD5,4628,11916,66820,616750,9504932,,Samsung Galaxy S10+
+SHA-256,2711,9836,94020,913606,10041891,,Samsung Galaxy S10+
+SHA-512,2482,9416,87808,974792,10662216,,Samsung Galaxy S10+
