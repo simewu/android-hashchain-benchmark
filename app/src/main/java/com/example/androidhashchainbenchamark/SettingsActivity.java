@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
@@ -36,9 +37,11 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
                 button.setText("Running...");
                 FileWriter fWriter;
-                File sdCardFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/benchmarkOutput.csv");
+                File sdCardFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/benchmarkOutputMobile.csv");
                 Log.d("TAG", sdCardFile.getPath()); //<-- check the log to make sure the path is correct.
                 try {
                     Experiment experiment = new Experiment(sdCardFile);

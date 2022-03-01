@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TMSI Hashchain.iml" filepath="$PROJECT_DIR$/TMSI Hashchain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmsiserver.iml" filepath="$PROJECT_DIR$/tmsiserver.iml" />
     </modules>
   </component>
 </project>
