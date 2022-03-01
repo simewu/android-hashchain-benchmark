@@ -1,3 +1,8 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-03-01
+ *Contract: 0xE335fC2e9B8B03f4F47aFE25A9A5D8d5b2dA4ACc
+*/
+
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.12;
 
@@ -24,7 +29,7 @@ contract Storage {
     function hasWritePrivilege(address user) public pure returns (bool) {
         if(user == 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4) return true; // Core network 1
         if(user == 0x235d39CDA65c223611eA2A914FD686307FF389A4) return true; // Core network 2
-        if(user == 0x235d39CDA65c223611eA2A914FD686307FF389A4) return true; // etc...
+        if(user == 0x0000000000000000000000000000000000000000) return true; // etc...
         return false;
     }
 
