@@ -1,4 +1,4 @@
-web3j generate solidity -a=contract.abi -b=contract.bin -o=..\tmsiserver\src -p=TMSI_Contract_Wrapper
+web3j generate solidity -a=Storage.abi -b=Storage.bin -o=..\tmsiserver\src -p=TMSI_Contract_Wrapper
 PAUSE
 
 
