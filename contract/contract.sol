@@ -1,12 +1,7 @@
-/**
- *Submitted for verification at Etherscan.io on 2022-03-01
- *Contract: 0xE335fC2e9B8B03f4F47aFE25A9A5D8d5b2dA4ACc
-*/
-
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.12;
 
-contract Storage {
+contract TMSI_Contract {
     mapping(bytes32 => uint32) tmsimap;
     
     // If the user has write privileges, set their index in the ledger to a specified TSMI value
