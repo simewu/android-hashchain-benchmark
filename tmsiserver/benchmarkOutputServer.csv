@@ -1,4 +1,4 @@
 Algorithm (samples=10000),Initialization (internal timer) (ns),Initialization (external timer) (ns),Item Fetching (internal timer) (ns),Item Fetching (external timer) (ns),Gen n=1 (internal timer) (ns),Gen n=1 (external timer) (ns),Gen n=10 (internal timer) (ns),Gen n=10 (external timer) (ns),Gen n=100 (internal timer) (ns),Gen n=100 (external timer) (ns),Gen n=1000 (internal timer) (ns),Gen n=1000 (external timer) (ns),Putting into packet (internal timer) (ns),Putting into packet (external timer) (ns),
-MD5,1533,598,836,474,1146,511,3583,2485,25395,25689,222655,210326,727,160,
-SHA-256,902,265,483,397,420,386,3119,2769,28234,27854,312042,328800,130,101,
-SHA-512,301,121,357,341,427,439,3372,3405,35120,35686,359959,354801,97,70,
+MD5,1620,689,946,495,725,434,2943,2903,27127,23205,218991,210557,679,186,
+SHA-256,1266,398,489,502,477,331,2551,2692,26127,27026,288869,303162,211,144,
+SHA-512,249,104,413,340,300,280,3167,3166,32613,32658,377955,349012,158,71,

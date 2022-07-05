@@ -1,0 +1,4 @@
+Algorithm (samples=10000),Initialization (ns),Item Fetching (ns),Gen n=1 (ns),Gen n=10 (ns),Gen n=100 (ns),Gen n=1000 (ns),Putting into packet (ns),
+MD5,2033,776,2080,3584,27940,214102,641,
+SHA-256,899,446,437,2744,25938,283342,121,
+SHA-512,250,393,351,2937,33793,347259,86,

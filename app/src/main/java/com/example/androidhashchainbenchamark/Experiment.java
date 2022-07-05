@@ -21,16 +21,16 @@ public class Experiment {
 
         String header = "";
         header += "Algorithm (samples=" + numSamples + "),";
-        header += "Initialization (internal timer) (ns),";
-        header += "Initialization (external timer) (ns),";
-        header += "Item Fetching (internal timer) (ns),";
-        header += "Item Fetching (external timer) (ns),";
+        //header += "Initialization (internal timer) (ns),";
+        header += "Initialization (ns),";
+        //header += "Item Fetching (internal timer) (ns),";
+        header += "Item Fetching (ns),";
         for(int i = 0; i < hashchainSizes.length; i++) {
-            header += "Gen n=" + hashchainSizes[i] + " (internal timer) (ns),";
-            header += "Gen n=" + hashchainSizes[i] + " (external timer) (ns),";
+            //header += "Gen n=" + hashchainSizes[i] + " (internal timer) (ns),";
+            header += "Gen n=" + hashchainSizes[i] + " (ns),";
         }
-        header += "Putting into packet (internal timer) (ns),";
-        header += "Putting into packet (external timer) (ns),";
+        //header += "Putting into packet (internal timer) (ns),";
+        header += "Putting into packet (ns),";
         output.write(header + "\n");
 
         HashChain hashchain;
@@ -42,55 +42,54 @@ public class Experiment {
                 continue;
             }
 
-            long initializationTimeInternal = InternalInitializationExperiment(algorithms[i], numSamples);
+            //long initializationTimeInternal = InternalInitializationExperiment(algorithms[i], numSamples);
             long initializationTimeExternal = ExternalInitializationExperiment(algorithms[i], numSamples);
 
-            long fetchDurationInternal = InternalFetchTimerExperiment(hashchain, numSamples);
+            //long fetchDurationInternal = InternalFetchTimerExperiment(hashchain, numSamples);
             long fetchDurationExternal = ExternalFetchTimerExperiment(hashchain, numSamples);
 
             String line = "";
             line += algorithms[i] + ",";
-            line += initializationTimeInternal + ",";
+            //line += initializationTimeInternal + ",";
             line += initializationTimeExternal + ",";
-            line += fetchDurationInternal + ",";
+            //line += fetchDurationInternal + ",";
             line += fetchDurationExternal + ",";
 
             for(int j = 0; j < hashchainSizes.length; j++) {
-                long generateInternal = InternalGenTimerExperiment(hashchain, hashchainSizes[j], numSamples);
+                //long generateInternal = InternalGenTimerExperiment(hashchain, hashchainSizes[j], numSamples);
                 long generateExternal = ExternalGenTimerExperiment(hashchain, hashchainSizes[j], numSamples);
-                line += generateInternal + ",";
+                //line += generateInternal + ",";
                 line += generateExternal + ",";
             }
 
             hashchain.generate(1);
             byte[] bytes = hashchain.fetchItem();
-            long packetDurationInternal = InternalPacketTimerExperiment(bytes, numSamples);
+            //long packetDurationInternal = InternalPacketTimerExperiment(bytes, numSamples);
             long packetDurationExternal = ExternalPacketTimerExperiment(bytes, numSamples);
 
-            line += packetDurationInternal + ",";
+            //line += packetDurationInternal + ",";
             line += packetDurationExternal + ",";
 
             output.write(line + "\n");
         }
 
-
         output.close();
     }
 
-    private long InternalInitializationExperiment(String algorithm, int numSamples) {
-        long fetchDuration = 0, startTime, endTime;
-        for (int j = 0; j < numSamples; j++) {
-            startTime = System.nanoTime();
-            try {
-                HashChain hashchain = new HashChain(54321, algorithm);
-            } catch (NoSuchAlgorithmException e) {
-            }
-            endTime = System.nanoTime();
-            fetchDuration += (endTime - startTime);
-        }
-        fetchDuration /= numSamples;
-        return fetchDuration;
-    }
+//    private long InternalInitializationExperiment(String algorithm, int numSamples) {
+//        long fetchDuration = 0, startTime, endTime;
+//        for (int j = 0; j < numSamples; j++) {
+//            startTime = System.nanoTime();
+//            try {
+//                HashChain hashchain = new HashChain(54321, algorithm);
+//            } catch (NoSuchAlgorithmException e) {
+//            }
+//            endTime = System.nanoTime();
+//            fetchDuration += (endTime - startTime);
+//        }
+//        fetchDuration /= numSamples;
+//        return fetchDuration;
+//    }
 
     private long ExternalInitializationExperiment(String algorithm, int numSamples) {
         long fetchDuration = 0, startTime, endTime;
@@ -106,19 +105,19 @@ public class Experiment {
         return fetchDuration;
     }
 
-    private long InternalFetchTimerExperiment(HashChain hashchain, int numSamples) {
-        hashchain.generate(numSamples); // So we don't run out of fetches
-        long fetchDuration = 0, startTime, endTime;
-        byte[] bytes;
-        for (int j = 0; j < numSamples; j++) {
-            startTime = System.nanoTime();
-            bytes = hashchain.fetchItem();
-            endTime = System.nanoTime();
-            fetchDuration += (endTime - startTime);
-        }
-        fetchDuration /= numSamples;
-        return fetchDuration;
-    }
+//    private long InternalFetchTimerExperiment(HashChain hashchain, int numSamples) {
+//        hashchain.generate(numSamples); // So we don't run out of fetches
+//        long fetchDuration = 0, startTime, endTime;
+//        byte[] bytes;
+//        for (int j = 0; j < numSamples; j++) {
+//            startTime = System.nanoTime();
+//            bytes = hashchain.fetchItem();
+//            endTime = System.nanoTime();
+//            fetchDuration += (endTime - startTime);
+//        }
+//        fetchDuration /= numSamples;
+//        return fetchDuration;
+//    }
 
     private long ExternalFetchTimerExperiment(HashChain hashchain, int numSamples) {
         hashchain.generate(numSamples); // So we don't run out of fetches
@@ -133,17 +132,17 @@ public class Experiment {
         return fetchDuration;
     }
 
-    private long InternalGenTimerExperiment(HashChain hashchain, int size, int numSamples) {
-        long generateDuration = 0, startTime, endTime;
-        for (int k = 0; k < numSamples; k++) {
-            startTime = System.nanoTime();
-            hashchain.generate(size);
-            endTime = System.nanoTime();
-            generateDuration += (endTime - startTime);
-        }
-        generateDuration /= numSamples;
-        return generateDuration;
-    }
+//    private long InternalGenTimerExperiment(HashChain hashchain, int size, int numSamples) {
+//        long generateDuration = 0, startTime, endTime;
+//        for (int k = 0; k < numSamples; k++) {
+//            startTime = System.nanoTime();
+//            hashchain.generate(size);
+//            endTime = System.nanoTime();
+//            generateDuration += (endTime - startTime);
+//        }
+//        generateDuration /= numSamples;
+//        return generateDuration;
+//    }
 
     private long ExternalGenTimerExperiment(HashChain hashchain, int size, int numSamples) {
         long generateDuration = 0, startTime, endTime;
@@ -157,25 +156,25 @@ public class Experiment {
     }
 
 
-    private long InternalPacketTimerExperiment(byte[] bytes, int numSamples) {
-        long generateDuration = 0, startTime, endTime;
-        try {
-            for (int k = 0; k < numSamples; k++) {
-                startTime = System.nanoTime();
-
-                InetAddress address = InetAddress.getByName("127.0.0.1");
-                int port = 1234;
-                DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
-
-                endTime = System.nanoTime();
-                generateDuration += (endTime - startTime);
-            }
-            generateDuration /= numSamples;
-        } catch (UnknownHostException e) {
-            return -1;
-        }
-        return generateDuration;
-    }
+//    private long InternalPacketTimerExperiment(byte[] bytes, int numSamples) {
+//        long generateDuration = 0, startTime, endTime;
+//        try {
+//            for (int k = 0; k < numSamples; k++) {
+//                startTime = System.nanoTime();
+//
+//                InetAddress address = InetAddress.getByName("127.0.0.1");
+//                int port = 1234;
+//                DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
+//
+//                endTime = System.nanoTime();
+//                generateDuration += (endTime - startTime);
+//            }
+//            generateDuration /= numSamples;
+//        } catch (UnknownHostException e) {
+//            return -1;
+//        }
+//        return generateDuration;
+//    }
 
 
     private long ExternalPacketTimerExperiment(byte[] bytes, int numSamples) {
