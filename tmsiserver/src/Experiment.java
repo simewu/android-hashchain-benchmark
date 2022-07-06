@@ -9,9 +9,9 @@ import java.security.NoSuchAlgorithmException;
 public class Experiment {
     public Experiment(File file) throws IOException {
 
-        int numSamples = 10000;
+        int numSamples = 100000;
 
-        String[] algorithms = new String[]{"MD5", "SHA-224", "SHA-256", "SHA-384", "SHA-512", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512"}; //, "SHA3-256"};
+        String[] algorithms = new String[]{"MD5", "SHA-224", "SHA-256", "SHA-384", "SHA-512"}; //, "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512"};
         int[] hashchainSizes = new int[]{1, 10, 100, 1000};
 
 

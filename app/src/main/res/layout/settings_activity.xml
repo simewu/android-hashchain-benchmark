@@ -10,7 +10,10 @@
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="423dp"
+            android:insetLeft="50dp"
+            android:insetTop="250dp"
+            android:insetRight="50dp"
             android:onClick="StartExperiment"
             android:text="Begin Experiment" />
 

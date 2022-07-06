@@ -1,5 +1,7 @@
 package com.example.androidhashchainbenchamark;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,11 +11,11 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
 public class Experiment {
-    public Experiment(File file) throws IOException {
+    public Experiment(File file) throws Exception {
 
-        int numSamples = 10000;
+        int numSamples = 100000;
 
-        String[] algorithms = new String[]{"MD5", "SHA-256", "SHA-512"}; //, "SHA3-256"};
+        String[] algorithms = new String[]{"MD5", "SHA-224", "SHA-256", "SHA-384", "SHA-512"}; //, "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512"};
         int[] hashchainSizes = new int[]{1, 10, 100, 1000};
 
 
@@ -37,9 +39,9 @@ public class Experiment {
 
         for(int i = 0; i < algorithms.length; i++) {
             try {
-                hashchain = new HashChain(54321, algorithms[i]);
+                hashchain = new HashChain(0, algorithms[i]);
             } catch (NoSuchAlgorithmException e) {
-                continue;
+                throw new Exception(e.getMessage());
             }
 
             //long initializationTimeInternal = InternalInitializationExperiment(algorithms[i], numSamples);
