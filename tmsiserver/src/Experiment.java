@@ -23,6 +23,8 @@ public class Experiment {
         header += "Initialization (ns),";
         //header += "Item Fetching (internal timer) (ns),";
         header += "Item Fetching (ns),";
+        header += "Individual Hash (ns),";
+        header += "Hash Verification (ns),";
         for(int i = 0; i < hashchainSizes.length; i++) {
             //header += "Gen n=" + hashchainSizes[i] + " (internal timer) (ns),";
             header += "Gen n=" + hashchainSizes[i] + " (ns),";
@@ -34,6 +36,21 @@ public class Experiment {
         HashChain hashchain;
 
         for(int i = 0; i < algorithms.length; i++) {
+            if(algorithms[i] != "SHA-256") {
+                // Skip all non SHA-256 algorithms
+                String line = "";
+                line += algorithms[i] + ",";
+                line += "0,";
+                line += "0,";
+                line += "0,";
+                line += "0,";
+                for(int i = 0; i < hashchainSizes.length; i++) {
+                    line += "0,";
+                }
+                line += "0,";
+                output.write(line + "\n");
+                continue;
+            }
             try {
                 hashchain = new HashChain(54321, algorithms[i]);
             } catch (NoSuchAlgorithmException e) {
@@ -45,6 +62,9 @@ public class Experiment {
 
             //long fetchDurationInternal = InternalFetchTimerExperiment(hashchain, numSamples);
             long fetchDurationExternal = ExternalFetchTimerExperiment(hashchain, numSamples);
+            
+            long invididualHash = IndividualHashTimerExperiment(numSamples);
+            long hashVerify = HashVerifyTimerExperiment(numSamples);
 
             String line = "";
             line += algorithms[i] + ",";
@@ -52,6 +72,9 @@ public class Experiment {
             line += initializationTimeExternal + ",";
             //line += fetchDurationInternal + ",";
             line += fetchDurationExternal + ",";
+            
+            line += invididualHash + ",";
+            line += hashVerify + ",";
 
             for(int j = 0; j < hashchainSizes.length; j++) {
                 //long generateInternal = InternalGenTimerExperiment(hashchain, hashchainSizes[j], numSamples);
@@ -124,6 +147,33 @@ public class Experiment {
         startTime = System.nanoTime();
         for (int j = 0; j < numSamples; j++) {
             bytes = hashchain.fetchItem();
+        }
+        endTime = System.nanoTime();
+        fetchDuration = (endTime - startTime) / numSamples;
+        return fetchDuration;
+    }
+
+    private long IndividualHashTimerExperiment(int numSamples) {
+        hashchain.generate(numSamples); // So we don't run out of fetches
+        long fetchDuration = 0, startTime, endTime;
+        byte[] bytes;
+        startTime = System.nanoTime();
+        for (int j = 0; j < numSamples; j++) {
+            bytes = hashchain.fetchItem();
+            XXXXXXXXXXXXX
+        }
+        endTime = System.nanoTime();
+        fetchDuration = (endTime - startTime) / numSamples;
+        return fetchDuration;
+    }
+
+    private long HashVerifyTimerExperiment(int numSamples) {
+        long fetchDuration = 0, startTime, endTime;
+        byte[] bytes;
+        startTime = System.nanoTime();
+        for (int j = 0; j < numSamples; j++) {
+            bytes = hashchain.fetchItem();
+            XXXXXXXXXXXXX
         }
         endTime = System.nanoTime();
         fetchDuration = (endTime - startTime) / numSamples;
