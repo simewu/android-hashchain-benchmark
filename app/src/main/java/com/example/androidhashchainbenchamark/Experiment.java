@@ -81,14 +81,14 @@ public class Experiment {
             line += hashVerify + ",";
 
             // SKIP EVERYTHING ELSE
-            if(1 == 1) {
-                for (int j = 0; j < hashchainSizes.length; j++) {
-                    line += "0,";
-                }
-                line += "0,";
-                output.write(line + "\n");
-                continue;
-            }
+//            if(1 == 1) {
+//                for (int j = 0; j < hashchainSizes.length; j++) {
+//                    line += "0,";
+//                }
+//                line += "0,";
+//                output.write(line + "\n");
+//                continue;
+//            }
 
 
             for(int j = 0; j < hashchainSizes.length; j++) {
