@@ -81,14 +81,14 @@ public class Experiment {
             line += hashVerify + ",";
 
             // SKIP EVERYTHING ELSE
-//            if(1 == 1) {
-//                for (int j = 0; j < hashchainSizes.length; j++) {
-//                    line += "0,";
-//                }
-//                line += "0,";
-//                output.write(line + "\n");
-//                continue;
-//            }
+            if(1 == 1) {
+                for (int j = 0; j < hashchainSizes.length; j++) {
+                    line += "0,";
+                }
+                line += "0,";
+                output.write(line + "\n");
+                continue;
+            }
 
 
             for(int j = 0; j < hashchainSizes.length; j++) {
@@ -195,10 +195,10 @@ public class Experiment {
             return 0;
         }
         temp1 = digest.digest("hello".getBytes(StandardCharsets.UTF_8));
-        temp2 = digest.digest("world".getBytes(StandardCharsets.UTF_8));
         Boolean equal;
         startTime = System.nanoTime();
         for (int j = 0; j < numSamples; j++) {
+            temp2 = digest.digest("world".getBytes(StandardCharsets.UTF_8));
             equal = temp1 == temp2;
         }
         endTime = System.nanoTime();

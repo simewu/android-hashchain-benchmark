@@ -193,10 +193,10 @@ public class Experiment {
             return 0;
         }
         temp1 = digest.digest("hello".getBytes(StandardCharsets.UTF_8));
-        temp2 = digest.digest("world".getBytes(StandardCharsets.UTF_8));
         Boolean equal;
         startTime = System.nanoTime();
         for (int j = 0; j < numSamples; j++) {
+            temp2 = digest.digest("world".getBytes(StandardCharsets.UTF_8));
             equal = temp1 == temp2;
         }
         endTime = System.nanoTime();
