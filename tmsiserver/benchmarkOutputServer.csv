@@ -1,6 +1,0 @@
-Algorithm (samples=100000),Initialization (ns),Item Fetching (ns),Individual Hash (ns),Hash Verification (ns),Gen n=1 (ns),Gen n=10 (ns),Gen n=100 (ns),Gen n=1000 (ns),Putting into packet (ns),
-MD5,0,0,0,0,0,0,0,0,0,
-SHA-224,0,0,0,0,0,0,0,0,0,
-SHA-256,674,3812,265,17,0,0,0,0,0,
-SHA-384,0,0,0,0,0,0,0,0,0,
-SHA-512,0,0,0,0,0,0,0,0,0,
