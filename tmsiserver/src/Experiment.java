@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.security.MessageDigest;
 
 public class Experiment {
     public Experiment(File file) throws IOException {
@@ -44,7 +46,7 @@ public class Experiment {
                 line += "0,";
                 line += "0,";
                 line += "0,";
-                for(int i = 0; i < hashchainSizes.length; i++) {
+                for(int j = 0; j < hashchainSizes.length; j++) {
                     line += "0,";
                 }
                 line += "0,";
@@ -63,8 +65,8 @@ public class Experiment {
             //long fetchDurationInternal = InternalFetchTimerExperiment(hashchain, numSamples);
             long fetchDurationExternal = ExternalFetchTimerExperiment(hashchain, numSamples);
             
-            long invididualHash = IndividualHashTimerExperiment(numSamples);
-            long hashVerify = HashVerifyTimerExperiment(numSamples);
+            long invididualHash = IndividualHashTimerExperiment(algorithms[i], numSamples);
+            long hashVerify = HashVerifyTimerExperiment(algorithms[i], numSamples);
 
             String line = "";
             line += algorithms[i] + ",";
@@ -75,6 +77,17 @@ public class Experiment {
             
             line += invididualHash + ",";
             line += hashVerify + ",";
+
+            // SKIP EVERYTHING ELSE
+            if(1 == 1) {
+                for (int j = 0; j < hashchainSizes.length; j++) {
+                    line += "0,";
+                }
+                line += "0,";
+                output.write(line + "\n");
+                continue;
+            }
+
 
             for(int j = 0; j < hashchainSizes.length; j++) {
                 //long generateInternal = InternalGenTimerExperiment(hashchain, hashchainSizes[j], numSamples);
@@ -153,31 +166,41 @@ public class Experiment {
         return fetchDuration;
     }
 
-    private long IndividualHashTimerExperiment(int numSamples) {
-        hashchain.generate(numSamples); // So we don't run out of fetches
-        long fetchDuration = 0, startTime, endTime;
-        byte[] bytes;
+    private long IndividualHashTimerExperiment(String algorithm, int numSamples) {
+        long startTime, endTime;
+        byte[] temp, input = "hello".getBytes(StandardCharsets.UTF_8);
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            return 0;
+        }
         startTime = System.nanoTime();
         for (int j = 0; j < numSamples; j++) {
-            bytes = hashchain.fetchItem();
-            XXXXXXXXXXXXX
+            temp = digest.digest(input);
         }
         endTime = System.nanoTime();
-        fetchDuration = (endTime - startTime) / numSamples;
-        return fetchDuration;
+        return (endTime - startTime) / numSamples;
     }
 
-    private long HashVerifyTimerExperiment(int numSamples) {
-        long fetchDuration = 0, startTime, endTime;
-        byte[] bytes;
+    private long HashVerifyTimerExperiment(String algorithm, int numSamples) {
+        long startTime, endTime;
+        byte[] temp1, temp2;
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            return 0;
+        }
+        temp1 = digest.digest("hello".getBytes(StandardCharsets.UTF_8));
+        temp2 = digest.digest("world".getBytes(StandardCharsets.UTF_8));
+        Boolean equal;
         startTime = System.nanoTime();
         for (int j = 0; j < numSamples; j++) {
-            bytes = hashchain.fetchItem();
-            XXXXXXXXXXXXX
+            equal = temp1 == temp2;
         }
         endTime = System.nanoTime();
-        fetchDuration = (endTime - startTime) / numSamples;
-        return fetchDuration;
+        return (endTime - startTime) / numSamples;
     }
 
 //    private long InternalGenTimerExperiment(HashChain hashchain, int size, int numSamples) {
